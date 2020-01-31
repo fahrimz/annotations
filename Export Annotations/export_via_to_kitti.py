@@ -100,12 +100,17 @@ def main():
                 box = json.loads(row[5])
                 x_min = int(math.floor(box['x']))
                 y_min = int(math.floor(box['y']))
-                x_max = int(math.ceil(box['width']))
-                y_max = int(math.ceil(box['height']))
+                x_max = int(math.ceil(box['width'])) + x_min
+                y_max = int(math.ceil(box['height'])) + y_min
                 box = [x_min, y_min, x_max, y_max]
 
-                with open(os.path.join(CONVERTED_LBL_DIR, os.path.splitext(filename)[0] + ".txt"), 'w') as f:
-                    f.write(box_to_line(box) + '\n')
+                savedFile = os.path.join(CONVERTED_LBL_DIR, os.path.splitext(filename)[0] + ".txt")
+                if os.path.isfile(savedFile):
+                    with open(savedFile, 'a') as f:
+                        f.write(box_to_line(box) + '\n')
+                else:
+                    with open(savedFile, 'w') as f:
+                        f.write(box_to_line(box) + '\n')
             
 
 if __name__ == "__main__":
