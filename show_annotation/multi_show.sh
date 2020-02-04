@@ -1,0 +1,1 @@
+python show_annotation.py -i /home/lattice/Pictures/DATASET/Tangan/SARUNG_TANGAN/classes/sarung_tangan_karet_putih/RESIZED -t VIA -a /home/lattice/Pictures/DATASET/Tangan/SARUNG_TANGAN/classes/sarung_tangan_karet_putih/RESIZED/via.csv --multi-image
