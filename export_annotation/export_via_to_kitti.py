@@ -91,13 +91,17 @@ def main():
 
                 filename = row[0]
 
+                box = json.loads(row[5])
+                
+                if box == {} or box == None:
+                    continue
+
                 # Copy image to 'images' folder
                 src_jpg = os.path.join(args.folder_path, filename)
                 dst_jpg = os.path.join(CONVERTED_IMG_DIR, filename)
                 copyfile(src_jpg, dst_jpg)
 
                 # Save box coordinates as txt file in 'labels' folder
-                box = json.loads(row[5])
                 x_min = int(math.floor(box['x']))
                 y_min = int(math.floor(box['y']))
                 x_max = int(math.ceil(box['width'])) + x_min
