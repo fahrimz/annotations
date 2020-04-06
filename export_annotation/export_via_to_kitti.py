@@ -26,10 +26,12 @@ def createArgParser():
                     help='The annotation file path.', default="via.csv")
     parser.add_argument('-f', '--folder-path', type=str, required=True,
                     help='The path to the folder containing the images.')
+    parser.add_argument('--class-name', type=str,
+                    help='The class/object name for the dataset.', required=True)
     return parser
 
 
-def box_to_line(box):
+def box_to_line(className, box):
     """Convert 1 bounding box into 1 line in the KITTI txt file.
 
     # Arguments
@@ -59,7 +61,7 @@ def box_to_line(box):
                         in detection, needed for p/r curves, higher is
                         better.
     """
-    return ' '.join(['hand',
+    return ' '.join([className,
                      '0',
                      '0',
                      '0',
@@ -111,10 +113,10 @@ def main():
                 savedFile = os.path.join(CONVERTED_LBL_DIR, os.path.splitext(filename)[0] + ".txt")
                 if os.path.isfile(savedFile):
                     with open(savedFile, 'a') as f:
-                        f.write(box_to_line(box) + '\n')
+                        f.write(box_to_line(args.class_name, box) + '\n')
                 else:
                     with open(savedFile, 'w') as f:
-                        f.write(box_to_line(box) + '\n')
+                        f.write(box_to_line(args.class_name, box) + '\n')
             
 
 if __name__ == "__main__":
